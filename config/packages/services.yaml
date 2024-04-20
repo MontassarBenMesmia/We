@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    security.csrf.token_manager.default:
+        class: Symfony\Component\Security\Csrf\TokenManager\NativeFileSessionTokenManager
+        arguments: ['%kernel.project_dir%/var/sessions']

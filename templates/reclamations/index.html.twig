@@ -1,0 +1,32 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Reclamations</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Type Reclamation</th>
+                <th>Description</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reclamation in reclamations %}
+                <tr>
+                    <td>{{ reclamation.email }}</td>
+                    <td>{{ reclamation.typeReclamation }}</td>
+                    <td>{{ reclamation.description }}</td>
+                    <td>{{ reclamation.etat }}</td>
+                    <td>
+                        <a href="{{ path('edit_reclamations', {'id': reclamation.id}) }}">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('new_reclamations') }}">Add Reclamation</a>
+{% endblock %}

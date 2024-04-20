@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Reclamation Details</h1>
+
+    <p>Email: {{ reclamation.email }}</p>
+    <p>Type Reclamation: {{ reclamation.typeReclamation }}</p>
+    <p>Description: {{ reclamation.description }}</p>
+    <p>Etat: {{ reclamation.etat }}</p>
+
+    <a href="{{ path('edit_reclamations', {'id': reclamation.id}) }}">Edit</a>
+    <a href="{{ path('delete_reclamations', {'id': reclamation.id}) }}">Delete</a>
+{% endblock %}

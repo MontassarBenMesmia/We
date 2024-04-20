@@ -1,3 +1,26 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+reclamations:
+    path: /reclamations
+    controller: App\Controller\ReclamationsController::index
+
+new_reclamations:
+    path: /reclamations/new
+    controller: App\Controller\ReclamationsController::new
+
+show_reclamations:
+    path: /reclamations/{id}
+    controller: App\Controller\ReclamationsController::show
+
+edit_reclamations:
+    path: /reclamations/{id}/edit
+    controller: App\Controller\ReclamationsController::edit
+
+delete_reclamations:
+  path: /reclamations/{id}/delete
+  methods: [DELETE]
+  controller: App\Controller\ReclamationsController::delete
+search_reclamations:
+    path: /reclamations/search
+    controller: App\Controller\ReclamationsController::search

@@ -1,0 +1,10 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Add Reclamation</h1>
+
+    {{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <button type="submit">Save</button>
+    {{ form_end(form) }}
+{% endblock %}
