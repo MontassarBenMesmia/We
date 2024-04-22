@@ -24,3 +24,6 @@ delete_reclamations:
 search_reclamations:
     path: /reclamations/search
     controller: App\Controller\ReclamationsController::search
+new_index:
+  path: /new_index
+  controller: App\Controller\NewIndexController::index    

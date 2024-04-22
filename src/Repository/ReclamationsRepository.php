@@ -14,30 +14,32 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ReclamationsRepository extends ServiceEntityRepository
 {
+    /**
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
+    private $_em;
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Reclamations::class);
+        $this->_em = $registry->getManager();
     }
 
     public function add(Reclamations $reclamation): void
     {
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($reclamation);
-        $entityManager->flush();
+        $this->_em->persist($reclamation);
+        $this->_em->flush();
     }
-    
+
     public function delete(Reclamations $reclamation): void
     {
-        $entityManager = $this->getEntityManager();
-        $entityManager->remove($reclamation);
-        $entityManager->flush();
+        $this->_em->remove($reclamation);
+        $this->_em->flush();
     }
-    
+
     public function update(Reclamations $reclamation): void
     {
-        $entityManager = $this->getEntityManager();
-        $entityManager->persist($reclamation);
-        $entityManager->flush();
+        $this->_em->persist($reclamation);
+        $this->_em->flush();
     }
 
     public function findAll(): array

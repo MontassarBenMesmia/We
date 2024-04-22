@@ -12,27 +12,24 @@ class Reclamations
     #[ORM\GeneratedValue]
     #[ORM\Column]
     
-    
     private ?int $id = null;
 
-    
-    
-    
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Email is required")]
-    #[Assert\Email(message: "Not valid Email")]
+    #[Assert\NotBlank(message: "NotBlank")]
+    #[Assert\Email(message: "Not Valid")]
     private ?string $email = null;
 
-    
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "NotBlank")]
     
     private ?string $typeReclamation = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Description Required")]
+    #[Assert\NotBlank(message: "NotBlank")]
+    
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    
     
     private ?string $etat = null;
 

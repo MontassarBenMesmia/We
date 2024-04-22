@@ -23,3 +23,7 @@ services:
     App\Controller\ReclamationsController:
         tags: ['controller.service_arguments']
         public: true
+
+    # Indent this line under the first "services:" key
+    App\Controller\NewIndexController:
+        tags: ['controller.service_arguments']

@@ -30,18 +30,20 @@ class ReclamationsController extends AbstractController
         $reclamation = new Reclamations();
         $form = $this->createForm(ReclamationsType::class, $reclamation);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamation->setEtat('En cours');
             $reclamationsRepository->add($reclamation);
-            $this->addFlash('success', 'Reclamation created successfully');
-            return $this->redirectToRoute('reclamations');
-        }
+                $this->addFlash('success', 'Reclamation created successfully');
+                return $this->redirectToRoute('reclamations');
+            }
 
+    
         return $this->render('reclamations/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    
 
     /**
      * @Route("/reclamations/{id}", name="show_reclamations")
@@ -69,6 +71,7 @@ class ReclamationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamation->setEtat('En cours');
+            $reclamation->setTypeReclamation($form->get('typeReclamation')->getData());
             $reclamationsRepository->update($reclamation);
             $this->addFlash('success', 'Reclamation updated successfully');
             return $this->redirectToRoute('reclamations');
