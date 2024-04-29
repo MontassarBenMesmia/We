@@ -1,6 +1,3 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
 reclamations:
     path: /reclamations
     controller: App\Controller\ReclamationsController::index
@@ -26,4 +23,15 @@ search_reclamations:
     controller: App\Controller\ReclamationsController::search
 new_index:
   path: /new_index
-  controller: App\Controller\NewIndexController::index    
+  controller: App\Controller\NewIndexController::index 
+
+reponse_new:
+    path: /reponse/new
+    controller: App\Controller\ReponseController::new
+add_reponse:
+    path: /reclamations/{id}/Reponse
+    controller: App\Controller\ReclamationsController::add_reponse
+    
+reclamations_stat:
+    path: /reclamations/stat
+    controller: App\Controller\ReclamationsController::stat

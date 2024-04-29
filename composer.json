@@ -39,6 +39,7 @@
         "symfony/string": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
+        "symfony/ux-chartjs": "^2.17",
         "symfony/validator": "5.4.*",
         "symfony/web-link": "5.4.*",
         "symfony/yaml": "5.4.*",
@@ -60,7 +61,9 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "MercurySeries\\FlashyBundle\\": "vendor/mercuryseries/flashy-bundle/src"
+
         }
     },
     "autoload-dev": {

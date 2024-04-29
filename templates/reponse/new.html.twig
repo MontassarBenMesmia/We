@@ -1,0 +1,35 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-header text-center">
+      <h1>Create Response</h1>
+    </div>
+    <div class="card-body d-flex flex-column align-items-center">
+      <p>Email: {{ email }}</p>
+      <p>Type Reclamation: {{ typeReclamation }}</p>
+      <p>Description: {{ description }}</p>
+
+      {{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+      <div class="row w-100">
+        <div class="col-md-12">
+          <div class="form-group mb-3 d-flex align-items-center">
+            {{ form_label(form.content, 'Reponse', {'label_attr': {'class': 'col-form-label col-form-label-lg mr-3'}}) }}
+            {{ form_widget(form.content, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+            {% if form.content.vars.errors|length > 0 %}
+              <div class="text-danger">
+                {{ form_errors(form.content) }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="w-100 d-flex justify-content-end">
+        <div class="mr-3">
+          <button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Save</button>
+        </div>
+      </div>
+      {{ form_end(form) }}
+    </div>
+  </div>
+{% endblock %}

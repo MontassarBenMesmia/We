@@ -15,8 +15,10 @@ class NewIndexController extends AbstractController
      */
     public function index(ReclamationsRepository $reclamationsRepository): Response
     {
+        $reclamations = $reclamationsRepository->findBy(['email' => 'montassarbenmesmia@gmail.com']);
+
         return $this->render('reclamations/index1.html.twig', [
-            'reclamations' => $reclamationsRepository->findAll(),
+            'reclamations' => $reclamations,
         ]);
     }
 }

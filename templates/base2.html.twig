@@ -78,7 +78,7 @@ sessionStorage.fonts = true;
 							<form class="navbar-left navbar-form nav-search mr-md-3">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<button type="submit" class="btn btn-search pr-1">
+										<button type="submit"  class="btn btn-search pr-1">
 											<i class="fa fa-search search-icon"></i>
 										</button>
 									</div>
@@ -308,7 +308,8 @@ sessionStorage.fonts = true;
 											<li>
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item" href="">My Profile</a>
-												<a class="dropdown-item" href="">Website</a>
+                                                <a class="dropdown-item" href="{{ path('new_index') }}">Website</a>
+
 
 												<div class="dropdown-divider"></div>
 												<a class="dropdown-item" href="">Logout</a>
@@ -330,19 +331,48 @@ sessionStorage.fonts = true;
 					<div class="sidebar-content">
 						<ul class="nav nav-primary">
 							<li class="nav-item">
-								
-								
-										
+								<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+									<i class="fas fa-home"></i>
+									<p>Dashboard</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="dashboard">
+									<ul
+										class="nav nav-collapse">
 										
 
-									
-								
+										
+										<li class="nav-item">
+											<a href="{{ path('reclamations') }}">
+												<p>Reclamations</p>
+											</a>
+
+										</li>
+
+                                        <li class="nav-item">
+											<a href="{{ path('reponses') }}">
+												<p>Reponses</p>
+											</a>
+
+										</li>
+
+
+										<!--Advice -->
+										<li class="nav-item">
+											<a href="{{ path('stat') }}">
+												<p>Statistiques</p>
+											</a>
+
+										</li>
+
+									</li>
+								</ul>
 							</li>
-						</ul>
+						</div>
 					</div>
 				</div>
 			</div>
-			
+			<!-- End Sidebar -->
 		</div>
 
 		<div class="main-panel">
@@ -381,7 +411,7 @@ sessionStorage.fonts = true;
 
 	<!-- Chart JS -->
 	<script src="{{asset('js/plugin/chart.js/chart.min.js')}}"></script>
-
+    
 	<!-- jQuery Sparkline -->
 	<script src="{{asset('js/plugin/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
 

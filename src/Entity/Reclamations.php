@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Reponse;
 use App\Repository\ReclamationsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Serializer\Annotation\Groups;#[ORM\Entity(repositoryClass: ReclamationRepository::class)]
+use Symfony\Component\Serializer\Annotation\Groups;
+#[ORM\Entity(repositoryClass: ReclamationsRepository::class)]
 class Reclamations
 {
     #[ORM\Id]
@@ -32,6 +33,10 @@ class Reclamations
     #[ORM\Column(length: 255)]
     
     private ?string $etat = null;
+
+    #[ORM\OneToOne(inversedBy: "reclamation", cascade: ["persist"])]
+    private ?Reponse $reponse = null;
+
 
     public function getId(): ?int
     {
@@ -87,4 +92,17 @@ class Reclamations
     }
 
     public function __toString(){return (string)$this->getId();}
+
+public function getReponse(): ?Reponse
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?Reponse $reponse): self
+    {
+        $this->reponse = $reponse;
+
+        return $this;
+    }
+    
 }

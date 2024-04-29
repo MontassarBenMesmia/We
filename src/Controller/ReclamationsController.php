@@ -3,12 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\Reclamations;
+use App\Entity\Reponse;
+use App\Form\ReponseType;
 use App\Form\ReclamationsType;
 use App\Repository\ReclamationsRepository;
+use App\Repository\ReponseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
+use Symfony\UX\Chartjs\Model\Chart;
+
+
 
 class ReclamationsController extends AbstractController
 {
@@ -22,6 +31,13 @@ class ReclamationsController extends AbstractController
         ]);
     }
 
+    private $mailer;
+
+public function __construct(MailerInterface $mailer)
+{
+    $this->mailer = $mailer;
+}
+
     /**
      * @Route("/reclamations/new", name="new_reclamations")
      */
@@ -34,16 +50,25 @@ class ReclamationsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamation->setEtat('En cours');
             $reclamationsRepository->add($reclamation);
-                $this->addFlash('success', 'Reclamation created successfully');
-                return $this->redirectToRoute('reclamations');
-            }
-
+    
+            // Send an email using the Symfony Mailer component
+            $email = (new Email())
+                ->from('montassarbenmesmia@outlook.com')
+                ->to('montassarbenmesmia@gmail.com')
+                ->subject('New Reclamation')
+                ->text('This is a new reclamation from the website.')
+                ->html('<p>This is a new reclamation from the website.</p>');
+    
+            $this->mailer->send($email);
+    
+            $this->addFlash('success', 'Reclamation created successfully');
+            return $this->redirectToRoute('reclamations');
+        }
     
         return $this->render('reclamations/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-    
 
     /**
      * @Route("/reclamations/{id}", name="show_reclamations")
@@ -74,7 +99,7 @@ class ReclamationsController extends AbstractController
             $reclamation->setTypeReclamation($form->get('typeReclamation')->getData());
             $reclamationsRepository->update($reclamation);
             $this->addFlash('success', 'Reclamation updated successfully');
-            return $this->redirectToRoute('reclamations');
+            return $this->redirectToRoute('new_index');
         }
 
         return $this->render('reclamations/edit.html.twig', [
@@ -100,13 +125,120 @@ class ReclamationsController extends AbstractController
     /**
      * @Route("/reclamations/search", name="search_reclamations")
      */
-    public function search(Request $request, ReclamationsRepository $reclamationsRepository): Response
-    {
-        $searchTerm = $request->query->get('search');
-        $reclamations = $reclamationsRepository->searchReclamations($searchTerm);
+    public function searchReclamations($searchTerm): array
+{
+    $queryBuilder = $this->createQueryBuilder('r');
 
-        return $this->render('reclamations/index.html.twig', [
-            'reclamations' => $reclamations,
-        ]);
+    $queryBuilder
+        ->where($queryBuilder->expr()->orX(
+            $queryBuilder->expr()->like('r.title', ':searchTerm'),
+            $queryBuilder->expr()->like('r.description', ':searchTerm')
+        ))
+        ->setParameter('searchTerm', '%'.$searchTerm.'%');
+
+    $reclamations = $queryBuilder->getQuery()->getResult();
+
+    return $reclamations;
+}
+   /**
+ * @Route("/reclamations/trier-par-email", name="trier_par_email")
+ */
+public function trierParEmail(ReclamationsRepository $reclamationsRepository): Response
+{
+    $reclamations = $reclamationsRepository->findBy([], ['email' => 'ASC']);
+
+    return $this->render('reclamations/index.html.twig', [
+        'reclamations' => $reclamations,
+    ]);
+}
+
+/**
+ * @Route("/reclamations/trier-par-etat", name="trier_par_etat")
+ */
+public function trierParEtat(ReclamationsRepository $reclamationsRepository): Response
+{
+    $reclamations = $reclamationsRepository->findBy([], ['etat' => 'ASC']);
+
+    return $this->render('reclamations/index.html.twig', [
+        'reclamations' => $reclamations,
+    ]);
+} 
+/**
+ * @Route("/reclamations/{id}/Reponse", name="add_reponse")
+ */
+public function add_reponse(Request $request, $id, ReclamationsRepository $reclamationsRepository): Response
+{
+    $reclamation = $reclamationsRepository->find($id);
+    // Check if reclamation exists, handle if not found
+
+    $response = new Reponse();
+
+    $form = $this->createForm(ReponseType::class, $response, [
+        'reclamation' => $reclamation,
+    ]);
+
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $reclamation->setEtat('Traité');
+        $reclamation->setReponse($response);
+        $reclamationsRepository->update($reclamation);
+        $this->addFlash('success', 'Reclamation updated successfully');
+        return $this->redirectToRoute('reclamations');
     }
+
+    return $this->render('reponse/new.html.twig', [
+        'form' => $form->createView(),
+        'reclamation' => $reclamation, // Pass the Reclamations entity to the template
+        'email' => $reclamation->getEmail(),
+        'typeReclamation' => $reclamation->getTypeReclamation(),
+        'description' => $reclamation->getDescription(),
+    ]);
+}
+/**
+ * @Route("/reclamations/stat", name="stat")
+ */
+public function stat(): Response
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $repository = $entityManager->getRepository(Reclamations::class);
+
+    // Count total number of reclamations
+    $totalReclamations = $repository->createQueryBuilder('r')
+        ->select('COUNT(r.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+
+    // Query for all reclamations and group them by type
+    $query = $repository->createQueryBuilder('r')
+        ->select('r.typeReclamation as type, COUNT(r.id) as count, COUNT(r.id) * 100 / :total as percentage')
+        ->setParameter('total', $totalReclamations)
+        ->groupBy('r.typeReclamation')
+        ->getQuery();
+
+    $reclamations = $query->getResult();
+
+    // Calculate the counts array
+    $counts = [];
+    foreach ($reclamations as $reclamation) {
+        $counts[$reclamation['type']] = $reclamation['count'];
+    }
+
+    return $this->render('reclamations/stat.html.twig', [
+        'reclamations' => $reclamations,
+        'counts' => $counts,
+    ]);
+}
+/**
+ * @Route("/reclamations/reponses", name="reponses")
+ */
+public function reponses(ReponseRepository $reponseRepository): Response
+{
+    $reponses = $reponseRepository->findAllWithReclamations();
+
+    return $this->render('reclamations/reponses.html.twig', [
+        'reponses' => $reponses,
+    ]);
+}
+
 }

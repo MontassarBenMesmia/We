@@ -27,3 +27,6 @@ services:
     # Indent this line under the first "services:" key
     App\Controller\NewIndexController:
         tags: ['controller.service_arguments']
+        
+    # Add the ChartBuilderInterface service definition
+    Symfony\Component\Chart\ChartBuilderInterface: '@Symfony\Component\Chart\ChartBuilder'       
