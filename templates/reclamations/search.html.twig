@@ -1,0 +1,39 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}Reclamations Search Results{% endblock %}
+
+{% block body %}
+    <!--... -->
+
+    <table class="table table-striped table-striped-bg-default mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Type Reclamation</th>
+                <th scope="col">Description</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if reclamations|length > 0 %}
+                {% for reclamation in reclamations %}
+                    <tr>
+                        <td>{{ reclamation.email }}</td>
+                        <td>{{ reclamation.typeReclamation }}</td>
+                        <td>{{ reclamation.description }}</td>
+                        <td>{{ reclamation.etat }}</td>
+                        <td>
+                            <!--... -->
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">no records found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+{% endblock %}

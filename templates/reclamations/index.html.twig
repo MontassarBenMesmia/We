@@ -1,4 +1,4 @@
-{% extends 'base2.html.twig' %}
+{% extends 'back-office.html.twig' %}
 
 {% block title %}Reclamations{% endblock %}
 
@@ -11,7 +11,6 @@
 <div class="float-right mb-3">
     <a href="{{ path('trier_par_email') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Trier par Email</a>
     <a href="{{ path('trier_par_etat') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary">Trier par Etat</a>
-
   </div>
 
   <table class="table table-striped table-striped-bg-default mt-3">
@@ -32,7 +31,11 @@
           <td>{{ reclamation.description }}</td>
           <td>{{ reclamation.etat }}</td>
           <td>
-            <a href="{{ path('add_reponse', {'id': reclamation.id}) }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Edit</a>
+            {% if reclamation.etat == "Traité" %}
+              <a href="{{ path('reponses') }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Voir</a>
+            {% else %}
+              <a href="{{ path('add_reponse', {'id': reclamation.id}) }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Edit</a>
+            {% endif %}
           </td>
         </tr>
       {% else %}

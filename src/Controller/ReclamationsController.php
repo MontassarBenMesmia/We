@@ -26,8 +26,14 @@ class ReclamationsController extends AbstractController
      */
     public function index(ReclamationsRepository $reclamationsRepository): Response
     {
+        $reclamations = $reclamationsRepository->findAll();
+    
+        if (!$reclamations) {
+            $reclamations = [];
+        }
+    
         return $this->render('reclamations/index.html.twig', [
-            'reclamations' => $reclamationsRepository->findAll(),
+            'reclamations' => $reclamations,
         ]);
     }
 
@@ -62,7 +68,7 @@ public function __construct(MailerInterface $mailer)
             $this->mailer->send($email);
     
             $this->addFlash('success', 'Reclamation created successfully');
-            return $this->redirectToRoute('reclamations');
+            return $this->redirectToRoute('new_index');
         }
     
         return $this->render('reclamations/new.html.twig', [
@@ -121,25 +127,32 @@ public function __construct(MailerInterface $mailer)
     $this->addFlash('success', 'Reclamation deleted successfully');
     return $this->redirectToRoute('reclamations');
 }
+/**
+ * @Route("/reclamations/search", name="reclamations_search")
+ */
 
-    /**
-     * @Route("/reclamations/search", name="search_reclamations")
-     */
-    public function searchReclamations($searchTerm): array
-{
-    $queryBuilder = $this->createQueryBuilder('r');
-
-    $queryBuilder
-        ->where($queryBuilder->expr()->orX(
-            $queryBuilder->expr()->like('r.title', ':searchTerm'),
-            $queryBuilder->expr()->like('r.description', ':searchTerm')
-        ))
-        ->setParameter('searchTerm', '%'.$searchTerm.'%');
-
-    $reclamations = $queryBuilder->getQuery()->getResult();
-
-    return $reclamations;
-}
+ public function searchReclamations(Request $request, ReclamationsRepository $reclamationsRepository): Response
+ {
+     $searchTerm = $request->get('search_term');
+ 
+     $queryBuilder = $reclamationsRepository->createQueryBuilder('r');
+     $queryBuilder
+         ->where($queryBuilder->expr()->orX(
+             $queryBuilder->expr()->like('r.email', ':searchTerm'),
+             $queryBuilder->expr()->like('r.description', ':searchTerm')
+         ))
+         ->setParameter('searchTerm', '%'. $searchTerm. '%');
+ 
+     $searchResults = $queryBuilder->getQuery()->getResult();
+ 
+     if (!$searchResults) {
+         $searchResults = []; // Initialize an empty array when no results are found
+     }
+ 
+     return $this->render('reclamations/search.html.twig', [
+         'reclamations' => $searchResults,
+     ]);
+ }
    /**
  * @Route("/reclamations/trier-par-email", name="trier_par_email")
  */

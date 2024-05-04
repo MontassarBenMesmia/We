@@ -1,4 +1,4 @@
-{% extends 'base2.html.twig' %}
+{% extends 'back-office.html.twig' %}
 
 {% block body %}
     <h1>Reclamation Details</h1>
@@ -8,5 +8,6 @@
     <p>Description: {{ reclamation.description }}</p>
     <p>Etat: {{ reclamation.etat }}</p>
 
-    <a href="{{ path('add_reponse', {'id': reclamation.id}) }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Edit</a>
+    <a href="{{ path('edit_reclamations', {'id': reclamation.id}) }}">Edit</a>
+    <a href="{{ path('delete_reclamations', {'id': reclamation.id}) }}">Delete</a>
 {% endblock %}

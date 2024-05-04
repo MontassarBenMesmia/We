@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="{{asset('css/aos.css')}}">
 
   <link rel="stylesheet" href="{{asset('css/style.css')}}">
+  
 
 </head>
 
@@ -44,15 +45,22 @@
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li href="">Home</a></li>
+                <li href=""><a class="active">Home</a></li>
                 <li><a href="shop.html">Products</a></li>
                 <li><a href="">Events</a></li>
                 <li class="has-children">
-                  <a class="active">Reclamation</a>
+                  <a class="active">Reclamations</a>
+                  <ul class="dropdown">
+                    <li><a href="#"></a></li>
+                    <li><a href="/new_index">Vos Réclamations</a></li>
+                    <li><a href="/reclamations/new">Nouvelle Réclamations</a></li>
+                    
+                  </ul>
+
                   
 
                 </li>
-               <li class="active"><a href="{{asset('organisation')}}" >organisation</a></li>
+               
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
               </ul>
@@ -74,6 +82,12 @@
         </div>
       </div>
     </div>
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    
 
 {% block body %}
     <div class="site-blocks-cover" style="background-image: url('img/hero_1.jpg');">
@@ -329,10 +343,8 @@
           <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
             <h3 class="footer-heading mb-4">Quick Links</h3>
             <ul class="list-unstyled">
-              <li><a href="#">AA</a></li>
-              <li><a href="#">BB</a></li>
-              <li><a href="#">CC</a></li>
-              <li><a href="#">DD &amp; EE</a></li>
+              <li><a href="/new_index">Vos Reclamations</a></li>
+              <li><a href="/reclamations/new">Nouvelle Reclamation</a></li>
             </ul>
           </div>
 
@@ -376,6 +388,7 @@
   <script src="{{asset('js/aos.js')}}"></script>
 
   <script src="{{asset('js/main.js')}}"></script>
+  
 
 </body>
 

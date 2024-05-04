@@ -1,4 +1,4 @@
-{% extends 'base2.html.twig' %}
+{% extends 'back-office.html.twig' %}
 
 {% block body %}
 
@@ -22,10 +22,10 @@
             ]);
 
             var options = {
-                title: 'Répartition des reclamations par Montant',
-                is3D: true,
-                width: 1200,
-                height: 850
+                title: 'Répartition des reclamations par type',
+                is3D: false,
+                width: 800,
+                height: 625
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
