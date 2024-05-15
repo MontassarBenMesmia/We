@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits de la catégorie {{ categorie.nomcategorie }}{% endblock %}
+
+{% block body %}
+    <h1>Produits de la catégorie {{ categorie.nomcategorie }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Quantité en stock</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.prix }}</td>
+                <td>{{ produit.quantiteenstock }}</td>
+                <td colspan="2"><img src="{{ asset('images/' ~ produit.image) }}" alt="Image"  style="max-width: 200px;"></td>
+                <td>
+                    <a href="{{ path('app_produit_show', {'id': produit.id}) }}">Afficher</a>
+                    <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier</a>
+                    <form method="post" action="{{ path('app_produit_delete', {'id': produit.id}) }}" style="display: inline-block;" onsubmit="return confirm('Voulez-vous vraiment supprimer ce produit?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun produit trouvé dans cette catégorie.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <p><a href="{{ path('app_categorie_index') }}">Retour à la liste des catégories</a></p>
+{% endblock %}

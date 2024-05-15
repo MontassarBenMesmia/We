@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipe index{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% for equipe in equipes %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img src="{{ asset('images/' ~ equipe.image) }}" alt="Image" class="img-fluid mb-3">
+                        <h5 class="card-title">{{ equipe.name }}</h5>
+                        <p class="card-text">{{ equipe.date }}</p>
+                        <a href="{{ path('app_equipe_show_players', {'id': equipe.id}) }}" class="btn btn-sm btn-primary">Show Players</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

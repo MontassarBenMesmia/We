@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits {% endblock %}
+
+
+{% block body %}
+    
+    
+ </div>
+
+     <div class="product-bar">
+        <p style="color: white; font-size: 20px; font-weight: bold; display: flex; align-items: center; justify-content: center; height: 100%;">Every Purchase Supports Peace in Palestine  | 2% of every product you buy goes directly towards supporting initiatives for peace and prosperity in Palestine.</p>
+    </div> 
+
+
+        <div class="card">
+    <div class="card-body">
+      <div class="your-class-name1">
+        <div><img src="{{ asset('images/prod.jpg') }}" alt="Prod"></div>
+        <div><img src="{{ asset('images/prod2.jpg') }}" alt="Prod 2"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="blue">Liste des Produits</h1>
+            </div>
+        </div>
+    </div>    
+
+            <div class="float-right mb-3">
+                <a href="{{ path('app_trier_par_prix1') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Trier par Prix</a>
+            </div>
+
+        <div class="container">
+  <div class="row">
+    {% for produit in produits %}
+      <div class="col-md-6 text-center mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src="{{ asset('images/' ~ produit.image) }}" alt="Image" class="img-fluid mb-3">
+            <h5 class="card-title">{{ produit.nom }}</h5>
+            <p class="card-text">{{ produit.description }}</p>
+            <p class="card-text"><strong>Prix:</strong> {{ produit.prix }} Dt</p>
+            <p class="card-text"><strong>Quantité en stock:</strong> {{ produit.quantiteenstock }}</p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="" class="btn btn-primary">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="col-12 text-center mb-4">
+        <p>no records found</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+   
+
+    <script>
+    $(document).ready(function(){
+      $('.your-class-name1').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+        nextArrow: '<button type="button" class="slick-next">Next</button>',
+      });
+    });
+  </script>
+
+  <style>
+    .your-class-name1 {
+      text-align: center;
+    }
+
+    .your-class-name1 img {
+      display: inline-block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .your-class-name1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .product-bar {
+    background-color: black;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+}
+  </style>
+
+{% endblock %}

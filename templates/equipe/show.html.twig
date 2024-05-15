@@ -1,0 +1,33 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}Equipe{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <h1 class="card-title text-center">Detail Equipe</h1>
+                    <div class="card-body text-center mb-3">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{ equipe.name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ equipe.date }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ path('app_equipe_index') }}" class="btn btn-secondary mr-2">Back to list</a>
+                            {{ include('equipe/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

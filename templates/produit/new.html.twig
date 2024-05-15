@@ -1,0 +1,14 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block body %}
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-header text-center">
+      <h1>Ajouter un nouveau produit</h1>
+    </div>
+    <div class="card-body" style="max-height: 500px; overflow-y: auto;">
+      {{ include('produit/_form.html.twig') }}
+    </div>
+  </div>
+{% endblock %}

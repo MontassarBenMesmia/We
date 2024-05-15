@@ -1,0 +1,18 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'} }) }}
+
+{{ form_label(form.name, "Nom de l'équipe") }}
+{{ form_widget(form.name) }}
+{{ form_errors(form.name) }}
+
+{{ form_label(form.date, "Date de l'équipe") }}
+{{ form_widget(form.date) }}
+{{ form_errors(form.date) }}
+
+{{ form_label(form.image, "Date de l'équipe") }}
+{{ form_widget(form.image) }}
+{{ form_errors(form.image) }}
+
+
+
+<button class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

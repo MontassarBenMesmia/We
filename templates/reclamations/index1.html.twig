@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}Reclamations index{% endblock %}
 {% block body %}
+ <p>
+    <a href="{{ path('new_reclamations') }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Create new</a>
+  </p>
   <div class="card-group mt-3 row g-3">
     {% for reclamation in reclamations %}
       <div class="col-6">
@@ -32,7 +35,5 @@
       </div>
     {% endfor %}
   </div>
-  <p>
-    <a href="{{ path('new_reclamations') }}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Create new</a>
-  </p>
+ 
 {% endblock %}

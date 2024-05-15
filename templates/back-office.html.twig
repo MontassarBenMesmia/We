@@ -32,7 +32,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" >
                 <div >
                     <img src="{{ asset('/images/logo.jpg') }}" style="max-width: 50px;">
 
@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" >
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -58,70 +58,82 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#"  data-target="#collapseTwo"
+                    aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>User</span>
+                </a>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Services</span>
+                    <span>Categorie et Produit</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
 
-                        <a class="collapse-item" href="">Ajouter Categorie</a>
-                        <a class="collapse-item" href="">Afficher Categorie</a>
-                        <a class="collapse-item" href="">Ajouter Produit</a>
-                        <a class="collapse-item" href="">Afficher Produit</a>
+                        <a class="collapse-item" href="{{ path('app_categorie_new') }}">Ajouter Categorie</a>
+                        <a class="collapse-item" href="{{ path('app_categorie_index') }}">Afficher Categories</a>
+                        <a class="collapse-item" href="{{ path('app_produit_new') }}">Ajouter Produit</a>
+                        <a class="collapse-item" href="{{ path('app_produit_index') }}">Afficher Produits</a>
                     </div>
                 </div>
           
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                   aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Equipes et Joueurs</span>
+                </a>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
 
+
+                        <a class="collapse-item" href="{{ path('app_equipe_new') }}">Ajouter Equipe</a>
+                        <a class="collapse-item" href="{{ path('app_equipe_index') }}">Afficher Equipes</a>
+                        <a class="collapse-item" href="{{ path('app_joueur_new') }}">Ajouter Joueur</a>
+                        <a class="collapse-item" href="{{ path('app_joueur_index') }}">Afficher Joueurs</a>
+                    </div>
+                </div>
            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
             
   <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+                   aria-expanded="true" aria-controls="collapseFour">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Reclamations</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
 
                         <a class="collapse-item" href="{{ path('reclamations') }}">Liste Réclamations</a>
                         <a class="collapse-item" href="{{ path('reponses') }}">Liste Réponses</a>
-                        <a class="collapse-item" href="{{ path('stat') }}">Statistiques</a>
+                        <a class="collapse-item" href="{{ path('stat') }}">Statistique</a>
                     </div>
                 </div>
           
 
            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+           
             
 
             
 
          
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+           
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="/back-office/img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+            
 
         </ul>
         <!-- End of Sidebar -->
@@ -141,16 +153,6 @@
                     </button>
 
                     <!-- Topbar Search -->
-<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" id="search-form" action="{{ path('reclamations_search') }}" method="get">
-    <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="search_term" value="{{ app.request.query.get('search_term') }}">
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" id="search-button">
-                <i class="fas fa-search fa-sm"></i>
-            </button>
-        </div>
-    </div>
-</form>
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">

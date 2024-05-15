@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+      <div class="your-class-name2">
+        <div><img src="{{ asset('images/F.png') }}" alt="Image F"></div>
+
+      </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="your-class-name">
+        <div><img src="{{ asset('images/1.png') }}" alt="Image 1"></div>
+        <div><img src="{{ asset('images/2.png') }}" alt="Image 2"></div>
+
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <div class="your-class-name1">
+        <div><img src="{{ asset('images/3.png') }}" alt="Image 3"></div>
+        <div><img src="{{ asset('images/4.png') }}" alt="Image 4"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      $('.your-class-name').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+        nextArrow: '<button type="button" class="slick-next">Next</button>',
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function(){
+      $('.your-class-name1').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: true,
+        dots: false,
+        prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+        nextArrow: '<button type="button" class="slick-next">Next</button>',
+      });
+    });
+  </script>
+
+  <style>
+    .your-class-name {
+      text-align: center;
+    }
+
+    .your-class-name img {
+      display: inline-block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .your-class-name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  </style>
+  <style>
+    .your-class-name1 {
+      text-align: center;
+    }
+
+    .your-class-name1 img {
+      display: inline-block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .your-class-name1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  </style>
+{% endblock %}

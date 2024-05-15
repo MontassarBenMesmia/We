@@ -1,0 +1,11 @@
+<!-- _form.html.twig -->
+{{ form_start(form, {'attr':{'novalidate':'novalidate'}}) }}
+  <div class="row w-100">
+    {{ form_widget(form) }}
+  </div>
+  <div class="w-100 d-flex justify-content-end">
+    <div class="mr-3">
+      <button type="submit" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+  </div>
+{{ form_end(form) }}

@@ -1,0 +1,53 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}Produit {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="blue">Liste des Produits</h1>
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="float-right mb-3">
+        <a href="{{ path('app_trier_par_prix') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Trier par Prix</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Quantiteenstock</th>
+                <th colspan="3">Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for produit in produits %}
+        <tr>
+            <td>{{ produit.nom }}</td>
+            <td>{{ produit.description }}</td>
+            <td>{{ produit.prix }}</td>
+            <td>{{ produit.quantiteenstock }}</td>
+            <td colspan="3"><img src="{{ asset('images/' ~ produit.image) }}" alt="Image" style="max-width: 200px;"></td>
+
+            <td>
+                <a href="{{ path('app_produit_show', {'id': produit.id}) }}">Modifier</a>
+            </td>
+        </tr>
+{% else %}
+        <tr>
+            <td colspan="6">no records found</td>
+        </tr>
+{% endfor %}
+
+        </tbody>
+    </table>
+        <p><a href="{{ path('app_produit_download_pdf') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Télécharger en PDF</a></P>
+
+{% endblock %}

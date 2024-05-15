@@ -1,0 +1,45 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>Categories</h1>
+    <div class="float-right mb-3">
+    <a href="{{ path('app_trier_par_nom') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Trier par Nom</a>
+    
+  </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nomcategorie</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <td>{{ categorie.nomcategorie }}</td>
+                   <td><a href="{{ path('app_categorie_show', {'id': categorie.idcategorie}) }}">Modifier</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="float-left mb-3">
+    <a href="{{ path('app_categorie_download_pdf') }}" class="btn btn-sm height-auto px-4 py-3 btn-secondary mr-2">PDF</a>
+    <a href="{{ path('app_categorie_download_excel') }}" class="btn btn-sm height-auto px-4 py-3 btn-secondary mr-2">Excel</a>
+      </div>
+    
+     <div class="float-right mb-3">
+    <a href="{{ path('app_categorie_new') }}" class="btn btn-sm height-auto px-4 py-3 btn-primary mr-2">Ajouter une nouvelle catégorie</a>
+    </div>
+    
+
+    
+
+
+{% endblock %}

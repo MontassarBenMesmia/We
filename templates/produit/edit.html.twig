@@ -1,0 +1,19 @@
+{% extends 'back-office.html.twig' %}
+
+{% block title %}Edit Produit{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header text-center">
+                <h1>Edit Produit</h1>
+            </div>
+            <div class="card-body">
+                {{ include('produit/_form.html.twig', {'button_label': 'Update'}) }}
+                <div class="text-center">
+                    <button class="btn btn-primary"><a href="{{ path('app_produit_index') }}" style="color: #fff; text-decoration: none;">back to list</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

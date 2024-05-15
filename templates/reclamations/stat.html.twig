@@ -1,37 +1,95 @@
 {% extends 'back-office.html.twig' %}
 
 {% block body %}
-
-
-<div id="piechart" style="width: 500px; height: 300px; margin-bottom: 20px;"></div>
-    <div id="barchart" style="width: 500px; height: 300px; margin-bottom: 20px;"></div>
-  
-
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawPieChart);
-        google.charts.setOnLoadCallback(drawBarChart);
-
-        function drawPieChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['reclamations', 'Nombre d\'reclamation'],
-                {% for reclamations, count in counts %}
-                    ['{{ reclamations}}', {{ count }}],
-                {% endfor %}
-            ]);
-
-            var options = {
-                title: 'Répartition des reclamations par type',
-                is3D: false,
-                width: 800,
-                height: 625
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-            chart.draw(data, options);
+    <style>
+        /* Use a more specific selector to avoid global styles */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        
-    </script>
+        .card {
+            width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Add flexbox to center the content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart {
+            width: 500px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+    </style>
+
+    <div class="card-container">
+        <div class="card">
+            <div id="piechart" class="chart"></div>
+            <div id="barchart" class="chart"></div>
+
+            <!-- Load Google Charts library -->
+            <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <!-- Move JavaScript code to the end of the HTML document -->
+            <script>
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawCharts);
+
+                function drawCharts() {
+                    drawPieChart();
+                    drawBarChart();
+                }
+
+                function drawPieChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['reclamations', 'Nombre d\'reclamation'],
+                        {% for reclamations, count in counts %}
+                            ['{{ reclamations}}', {{ count }}],
+                        {% endfor %}
+                    ]);
+
+                    var options = {
+                        title: 'Répartition des reclamations par type',
+                        is3D: false,
+                        width: 500,
+                        height: 300
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+
+                function drawBarChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['reclamations', 'Nombre d\'reclamation'],
+                        {% for reclamations, count in counts %}
+                            ['{{ reclamations}}', {{ count }}],
+                        {% endfor %}
+                    ]);
+
+                    var options = {
+                        title: 'Répartition des reclamations par type',
+                        chartArea: {width: '50%'},
+                        hAxis: {
+                            title: 'reclamations',
+                            minValue: 0
+                        },
+                        vAxis: {
+                            title: 'Nombre d\'reclamation'
+                        }
+                    };
+
+                    var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+                    chart.draw(data, options);
+                }
+            </script>
+        </div>
+    </div>
 {% endblock %}

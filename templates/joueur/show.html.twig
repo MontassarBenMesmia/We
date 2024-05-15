@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Joueur{% endblock %}
+
+{% block body %}
+    <h1>Joueur</h1>
+
+    <div class="body-area" style="text-align: center;">
+        <div class="footer-area">
+            <div class="container grey-container">
+                <div class="single-footer-widget">
+                    <h3>Add</h3>
+                    <div class="about-the-store">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#idModal">{{ joueur.id }}</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ joueur.nom }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Prenom</th>
+                                    <td>{{ joueur.prenom }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Age</th>
+                                    <td>{{ joueur.age }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nationalite</th>
+                                    <td>{{ joueur.nationalite }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Gmail</th>
+                                    <td>{{ joueur.gmail }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="{{ path('app_joueur_index') }}">Back to List</a>
+
+                        <a href="{{ path('app_joueur_edit', {'id': joueur.id}) }}">Edit</a>
+
+                        {{ include('joueur/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <!-- Modale pour afficher les détails du joueur -->
+    <div class="modal fade" id="idModal" tabindex="-1" role="dialog" aria-labelledby="idModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="idModalLabel">ID : {{ joueur.id }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nom :</strong> {{ joueur.nom }}</p>
+                    <p><strong>Prénom :</strong> {{ joueur.prenom }}</p>
+                    <p><strong>Age :</strong> {{ joueur.age }}</p>
+                    <p><strong>Nationalité :</strong> {{ joueur.nationalite }}</p>
+                    <p><strong>Gmail :</strong> {{ joueur.gmail }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

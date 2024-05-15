@@ -21,4 +21,5 @@ class NewIndexController extends AbstractController
             'reclamations' => $reclamations,
         ]);
     }
+
 }

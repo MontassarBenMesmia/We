@@ -35,3 +35,43 @@ add_reponse:
 reclamations_stat:
     path: /reclamations/stat
     controller: App\Controller\ReclamationsController::stat
+        
+home:
+    path: /home
+    controller: App\Controller\HomeController::home
+
+
+app_produit_statistics:
+    path: /produit-statistics
+    controller: App\Controller\ProduitController::produitStatistics
+app_categorie_download_excel:
+    path: /download-categories-excel
+    controller: App\Controller\CategorieController::downloadCategoriesExcel
+app_categorie_download_pdf:
+    path: /download-categories-pdf
+    controller: App\Controller\CategorieController::downloadCategoriesPdf
+app_produit_download_pdf:
+    path: /download-products-pdf
+    controller: App\Controller\ProduitController::downloadProductsPdf
+app_trier_par_nom:
+    path: /trier-par-nom
+    controller: App\Controller\CategorieController::trierParNom
+app_trier_par_prix:
+    path: /trier-par-prix
+    controller: App\Controller\ProduitController::trierParPrix    
+products:
+    path: /products
+    controller: App\Controller\ProduitController::indexfront
+equipes:
+    path: /equipes
+    controller: App\Controller\EquipeController::indexfront
+joueurs:
+    path: /joueurs
+    controller: App\Controller\JoueurController::indexfront
+about:
+  path: /about
+  controller: App\Controller\AboutController::about
+  methods: GET
+app_trier_par_prix1:
+    path: /trier-par-prixf
+    controller: App\Controller\ProduitController::trierParPrix1 
